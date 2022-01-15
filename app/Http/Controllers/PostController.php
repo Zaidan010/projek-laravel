@@ -16,8 +16,15 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-      
+        $q = $request->get('search');
+        if($q) {
+          $posts = Post::where('title', 'LIKE', '%' . $q . '%')
+                ->orWhere('content', 'LIKE', '%' . $q . '%')
+                 ->orderBy('id', 'desc')->paginate(5);
+        } else {
           $posts = Post::orderBy('id', 'desc')->paginate(5);
+        }       
+          
           return view('home.index', compact('posts'));
     }
 
