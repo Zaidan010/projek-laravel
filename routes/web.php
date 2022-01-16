@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostController@index')->name('index');
 Route::get('/post/{post}', 'PostController@show')->name('post');
+Route::post('posts/{post}/comment', 'PostController@comment')->name('post.comment');
 
 Route::group(['middleware' => ['auth']], function() {
   Route::get('/user', 'UserController@index')->name('user.index');
@@ -25,6 +26,9 @@ Route::group(['middleware' => ['auth']], function() {
   Route::put('/user/post/{post}', 'PostController@update')->name('user.post.update');
 
   Route::get('/user/post/delete/{post}', 'PostController@destroy')->name('user.post.delete');
+
+  Route::get('user/comments', 'UserController@comments')->name('user.comments');
+Route::delete('user/comments/{comment}', 'CommentController@destroy')->name('user.comments.destroy');
 });
 
 

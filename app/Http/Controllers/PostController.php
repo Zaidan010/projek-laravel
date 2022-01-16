@@ -20,9 +20,13 @@ class PostController extends Controller
         if($q) {
           $posts = Post::where('title', 'LIKE', '%' . $q . '%')
                 ->orWhere('content', 'LIKE', '%' . $q . '%')
-                 ->orderBy('id', 'desc')->paginate(5);
+                 ->orderBy('id', 'desc')
+                 ->withCount('comments')
+                 ->paginate(5);
         } else {
-          $posts = Post::orderBy('id', 'desc')->paginate(5);
+          $posts = Post::orderBy('id', 'desc')
+          ->withCount('comments')
+          ->paginate(5);
         }       
           
           return view('home.index', compact('posts'));
@@ -58,7 +62,23 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('home.post', compact('post'));
+        $post = $post->load(['comments.user', 'user']);
+      return view('home.post', compact('post'));
+    }
+
+    public function comment(Request $request, Post $post)
+    {
+        $this->validate($request, ['body' => 'required']);
+
+        $post->comments()->create([
+            'user_id'   => auth()->id(),
+            'body'      => $request->body           
+        ]);
+
+        session()->flash('message', 'Comment successfully created.');
+
+        return redirect("/post/{$post->id}");
+            
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Comment;
 
 class UserController extends Controller
 {
@@ -23,4 +24,14 @@ class UserController extends Controller
             }
         return view('user.index', compact('posts'));
     }
+    
+    public function comments()
+    {
+        $comments = Comment::with(['user', 'post'])->paginate(10);
+
+        return view('user.comments', compact('comments'));
+    }
+
 }
+
+

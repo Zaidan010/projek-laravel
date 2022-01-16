@@ -14,5 +14,31 @@ Post - {{ $post->title }}
       :published-at="$post->created_at"
       href=""
     />
+    
+    <button type="submit" href=  class="btn btn-success">
+      <a href="'user/post/'.$post->id">Edit</a>
+    </button>
+
+    <hr>
+
+<!-- Comments Form -->
+@auth @include('partials.comment-form') @endauth
+
+<h3>Comments</h3>
+
+<hr>
+
+@if($post->comments->isNotEmpty()) 
+
+    @foreach ($post->comments as $comment)
+
+        @include('partials.comment')
+
+    @endforeach
+
+@endif
+  
   </div>
+  
+
 @endsection

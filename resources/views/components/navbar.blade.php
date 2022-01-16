@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <a class="navbar-brand" href="@auth /user @else / @endauth">Public Blog</a>
+  <a class="navbar-brand" href="/">Public Blog</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -8,7 +8,7 @@
     <ul class="navbar-nav mr-auto">
       @auth
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('user.post.create') }}">Create Post</a>
+          <a class="nav-link" href="{{ route('user.post.create') }} ">Create Post</a>
         </li>
         <li class="nav-item">
               <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
@@ -17,6 +17,9 @@
               <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                  {{ csrf_field() }}
               </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="@auth /user @else / @endauth">User Post</a>
         </li>
       @else
         <li class="nav-item">

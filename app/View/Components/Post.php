@@ -6,14 +6,12 @@ use Illuminate\View\Component;
 
 class Post extends Component
 {
-
     public $title;
     public $author;
     public $thumbnail;
     public $description;
     public $publishedAt;
     public $href;
-
     /**
      * Create a new component instance.
      *
@@ -28,7 +26,6 @@ class Post extends Component
       $this->publishedAt = $publishedAt;
       $this->href = $href;
     }
-
     /**
      * Get the view / contents that represent the component.
      *
