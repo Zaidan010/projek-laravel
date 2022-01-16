@@ -15,9 +15,7 @@ Post - {{ $post->title }}
       href=""
     />
     
-    <button type="submit" href=  class="btn btn-success">
-      <a href="'user/post/'.$post->id">Edit</a>
-    </button>
+    
 
     <hr>
 
